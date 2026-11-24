@@ -21,7 +21,7 @@
       </q-card-section>
     </q-card>
 
-    <q-card>
+    <q-card class="q-mb-md">
       <q-card-section>
         <div class="text-h6">Docker Concepts (สรุปสั้น ๆ)</div>
         <q-list bordered separator class="q-mt-sm">
@@ -29,6 +29,20 @@
             <q-item-section>
               <q-item-label>{{ item.title }}</q-item-label>
               <q-item-label caption>{{ item.detail }}</q-item-label>
+            </q-item-section>
+          </q-item>
+        </q-list>
+      </q-card-section>
+    </q-card>
+
+    <q-card>
+      <q-card-section>
+        <div class="text-h6">Docker Quick Reference (คำสั่งที่ใช้บ่อย)</div>
+        <q-list bordered separator class="q-mt-sm">
+          <q-item v-for="(cmd, index) in dockerCommands" :key="index">
+            <q-item-section>
+              <q-item-label class="text-weight-medium">{{ cmd.command }}</q-item-label>
+              <q-item-label caption>{{ cmd.whenToUse }}</q-item-label>
             </q-item-section>
           </q-item>
         </q-list>
@@ -77,6 +91,29 @@ const dockerItems = [
   {
     title: 'Network',
     detail: 'ให้บริการใน Docker ติดต่อกันได้ เช่น Nginx ส่งต่อคำขอไปยัง Express',
+  },
+]
+
+const dockerCommands = [
+  {
+    command: 'docker compose up -d --build',
+    whenToUse: 'ใช้เมื่อต้องการสร้าง image ใหม่ตาม Dockerfile แล้วเปิดรันทุก service แบบเบื้องหลัง (-d)',
+  },
+  {
+    command: 'docker compose ps',
+    whenToUse: 'ใช้เมื่อต้องการตรวจสอบสถานะและพอร์ตของ container ทั้งหมดในโปรเจกต์ว่าทำงานอยู่หรือไม่',
+  },
+  {
+    command: 'docker compose logs -f',
+    whenToUse: 'ใช้เมื่อต้องการดู log แบบเรียลไทม์เพื่อดีบักตอนแอปหรือ Nginx/Express มีปัญหา',
+  },
+  {
+    command: 'docker compose down',
+    whenToUse: 'ใช้เมื่อต้องการหยุดและลบ container รวมถึง network ที่ compose สร้างไว้เมื่อเลิกใช้งานชั่วคราว',
+  },
+  {
+    command: 'docker ps -a',
+    whenToUse: 'ใช้เมื่อต้องการดูรายการ container ทั้งหมดในเครื่อง (รวมตัวที่หยุดทำงานหรือ exit ไปแล้ว)',
   },
 ]
 </script>
